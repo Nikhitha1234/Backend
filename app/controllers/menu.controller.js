@@ -50,7 +50,28 @@ exports.findAll = (req, res) => {
 });
 };
 
+exports.sortBy = (req, res) => {
 
+var query = Menu.find({Category:req.params.categoryName});
+console.log(req.params.sorttype);
+var s = req.params.sorttype;
+
+if(s=="Name"){
+
+var sorted = query.sort({"Name":1})
+query.exec(function(error, docs){
+  res.send(docs);
+});
+}
+else if(s=="Price"){
+var sorted = query.sort({"Unitprice":1})
+query.exec(function(error, docs){
+  res.send(docs);
+});
+
+}
+
+};
 exports.findOne = (req, res) => {
     Menu.find({ID:req.params.menuId})
         .then(menu => {
